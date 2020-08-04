@@ -4,6 +4,9 @@ using System.Text;
 
 namespace TextConverter
 {
+    /// <summary>
+    /// Contains dictionaries for two alphabets
+    /// </summary>
     public class Dictionaries
     {
         /// <summary>
