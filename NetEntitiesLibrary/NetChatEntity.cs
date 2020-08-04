@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 
 namespace NetEntitiesLibrary
@@ -66,10 +67,35 @@ namespace NetEntitiesLibrary
         /// <param name="entity">Who's going to get message</param>
         /// <param name="server">LAN server</param>
         /// <param name="message">Message</param>
-        public void SendMessage(NetChatEntity entity,Server server, string message)
+        public void SendMessage(NetChatEntity entity, Server server, List<NetChatEntity> LAN,  string message)
         {
-            entity.ReciveMessageEvent(message);
-            server.GetMessageEvent(entity, message);
+            if(LAN.Contains(server) && LAN.Contains(entity))
+            {
+                entity.ReciveMessageEvent(message);
+                server.GetMessageEvent(entity, message);
+            }
+            else
+            {
+                throw new ArgumentException("Unknown parameters");
+            }
+        }
+
+        /// <summary>
+        /// Calculates Class HashCode
+        /// </summary>
+        /// <returns>Hashcode</returns>
+        public override int GetHashCode()
+        {
+            return this.Adress.GetHashCode() ^ this.Port.GetHashCode();
+        }
+
+        /// <summary>
+        /// Returns class data in a text format
+        /// </summary>
+        /// <returns>Class data</returns>
+        public override string ToString()
+        {
+            return string.Format($"Adress:{Adress}:{Port}\n"); 
         }
     }
 }

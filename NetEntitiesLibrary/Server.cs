@@ -38,5 +38,48 @@ namespace NetEntitiesLibrary
             ReciveMessageEvent += recive;
         }
 
+        /// <summary>
+        /// Makes an equation between two objects
+        /// </summary>
+        /// <param name="obj">Object to be proceed</param>
+        /// <returns>true - if equal, flase - if not</returns>
+        public override bool Equals(object obj)
+        {
+            if(obj is Server)
+            {
+                Server server = obj as Server;
+
+                if(server.Adress.ToString() == this.Adress.ToString() && server.Port == this.Port)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Calculates Class HashCode
+        /// </summary>
+        /// <returns>Hashcode</returns>
+        public override int GetHashCode()
+        {
+            return base.GetHashCode() ^ History.GetHashCode() ^ ChatLogs.GetHashCode();
+        }
+
+        /// <summary>
+        /// Returns class data in a text format
+        /// </summary>
+        /// <returns>Class data</returns>
+        public override string ToString()
+        {
+            return string.Format($"Server is on ") + base.ToString();
+        }
     }
 }
